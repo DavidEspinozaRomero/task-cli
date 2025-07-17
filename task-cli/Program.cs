@@ -14,10 +14,10 @@ namespace task_cli
 
   public class TaskCLI
   {
-    private static readonly string filePath = "tasksList.json";
-    private static string inputString = "";
-
+    public static readonly string filePath = "tasksList.json";
+    public static string inputString = "";
     public static List<string> commandsList = CommandList();
+
     public static void Main()
     {
       do
@@ -95,7 +95,7 @@ namespace task_cli
         // if text is q Exit the program
       } while (inputString != "q");
     }
-    private static bool CheckCommand(string text)
+    public static bool CheckCommand(string text)
     {
       // Check if exist and not null
       if (text == null || text == "") { return false; }
@@ -133,13 +133,13 @@ namespace task_cli
       }
       return true;
     }
-    private static List<string> GetCommandAndVariables(string text)
+    public static List<string> GetCommandAndVariables(string text)
     {
       List<string> splicedText = text.Split(' ').ToList();
       List<string> commandAndVariables = splicedText.Slice(1, splicedText.Count - 1);
       return commandAndVariables;
     }
-    private static void CreateTask(TaskTodo task)
+    public static void CreateTask(TaskTodo task)
     {
       List<TaskTodo> taskList = GetTasks();
       task.Id = taskList.Count == 0 ? 1 : taskList.Max(task => task.Id) + 1;
@@ -147,27 +147,27 @@ namespace task_cli
       SaveTasks(taskList);
       Console.WriteLine($"Tarea guardada con éxito (ID:{task.Id})");
     }
-    private static void SaveTasks(List<TaskTodo> tasks)
+    public static void SaveTasks(List<TaskTodo> tasks)
     {
       var options = new JsonSerializerOptions { WriteIndented = true };
       var json = JsonSerializer.Serialize(tasks, options);
       File.WriteAllText(filePath, json);
     }
-    private static void DeleteTask(int id)
+    public static void DeleteTask(int id)
     {
       var tasks = GetTasks();
       var task = tasks.FirstOrDefault(task => task.Id == id);
       tasks.Remove(task);
       SaveTasks(tasks);
     }
-    private static List<TaskTodo> GetTasks()
+    public static List<TaskTodo> GetTasks()
     {
       if (!File.Exists(filePath)) return new List<TaskTodo>();
       string json = File.ReadAllText(filePath);
       List<TaskTodo> tasksList = JsonSerializer.Deserialize<List<TaskTodo>>(json);
       return tasksList ?? new List<TaskTodo>();
     }
-    private static void ShowTasks(string? status = null)
+    public static void ShowTasks(string? status = null)
     {
       var tasks = GetTasks();
       if (status != null) tasks = tasks.Where(task => task.Status == status).ToList();
@@ -176,7 +176,7 @@ namespace task_cli
         Console.WriteLine($"Task Id: {task.Id}, Description: {task.Description}, Status: {task.Status}");
       }
     }
-    private static void UpdateTaskDescription(int id, string description)
+    public static void UpdateTaskDescription(int id, string description)
     {
       var tasks = GetTasks();
       var task = tasks.FirstOrDefault(task => task.Id == id);
@@ -188,7 +188,7 @@ namespace task_cli
       task.Description = description;
       SaveTasks(tasks);
     }
-    private static void UpdateTaskStatus(int id, string status)
+    public static void UpdateTaskStatus(int id, string status)
     {
       var tasks = GetTasks();
       var task = tasks.FirstOrDefault(task => task.Id == id);
@@ -243,24 +243,3 @@ namespace task_cli
     }
   }
 }
-
-
-//Console.WriteLine("Porfavor ingrese un comando");
-//string? commandString = Console.ReadLine();
-//Console.WriteLine(comandString);
-
-
-//if (comandString == null)
-//{
-//    Console.WriteLine("Porfavor ingrese un comando");
-//}
-
-
-//public class taskCLI
-//{
-
-//Console.WriteLine("Hello, World!");
-
-//string comandString = Console.ReadLine();
-
-//}
