@@ -14,7 +14,7 @@ namespace task_cli
 
   public class TaskCLI
   {
-    public static readonly string filePath = "tasksList.json";
+    public static string filePath = "tasksList.json";
     public static string inputString = "";
     public static List<string> commandsList = CommandList();
 
@@ -185,7 +185,7 @@ namespace task_cli
         Console.WriteLine($"tarea no existe con id:{id}");
         return;
       }
-      task.Description = description;
+      task.UpdateDescription(description);
       SaveTasks(tasks);
     }
     public static void UpdateTaskStatus(int id, string status)
@@ -197,7 +197,7 @@ namespace task_cli
         Console.WriteLine($"tarea no existe con id:{id}");
         return;
       }
-      task.Status = status;
+      task.UpdateStatus(status);
       SaveTasks(tasks);
     }
     private static List<string> CommandList()
