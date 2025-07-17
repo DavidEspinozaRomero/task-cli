@@ -42,6 +42,7 @@ task-cli [command] [arguments...]
 
 
 💡 Commands & Usage
+
 ➕ Add a New Task
 ```bash
 task-cli add "Buy groceries"
