@@ -2,6 +2,7 @@
 
 Task Tracker is a simple command-line interface (CLI) application built in C# to help you **track, manage, and organize your tasks** directly from the terminal. You can easily add tasks, update them, delete them, and keep track of their progress through a local JSON file.
 
+https://roadmap.sh/projects/task-tracker
 ---
 
 ## 🚀 Features
@@ -42,6 +43,11 @@ task-cli [command] [arguments...]
 
 
 💡 Commands & Usage
+
+📌 TO EXIT 
+```bash
+q
+```
 
 ➕ Add a New Task
 ```bash
